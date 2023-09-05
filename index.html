@@ -2,7 +2,11 @@
 <html>
     <head>
         <title> Weather </title>
-        <style></style>
+        <style>
+            h2{
+                font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+        </style>
     </head>
     <body>
         <div id="weather-info">
@@ -13,8 +17,8 @@
             function getLocation() {
                 console.log('getting location');
 
-                if(navigator.geoloction) {
-                    navigatior.geoloaction.getCurrentPosition(getWeather);
+                if(navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(getWeather);
                     } else {
                         const weatherInfo = document.getElementById('weather-info');
                         weatherInfo.innerHTML = '<p> Geolocation is not supported </p>';
@@ -37,12 +41,20 @@
                     const data = await response.json();
                     console.log(data);
 
+                    const weatherType = data.current.condition.code;
+
+                    if(weatherType == 1000) {
+                        console.log
+                    }
+
                     const weatherInfo = document.getElementById('weather-info');
 
 					const currentLocation = "<h2>" + data.location.name + "</h2>";
-					const currentTemp = "<p>" + data.current.temp_c + "</p>";
+					const currentTemp = "<h2>" + data.current.temp_c + "&deg; C</h2>";
+                    const currentRegion = "<h2>" + data.location.region + "</h2>";
+                    const currentState = "<h2>" + data.location.tz_id + "</h2>";
 
-					weatherInfo.innerHTML = currentLocation + currentTemp;
+					weatherInfo.innerHTML = currentLocation + currentTemp + currentRegion + currentState;
                 
                 } catch(error) {
                     console.log('Error',error);
